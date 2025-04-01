@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "lucide-react"
 
-interface ShowSourceButtonProps {
+export function ShowSourceButton({
+  filePath,
+  className,
+}: {
   filePath: string
   className?: string
-}
-
-export function ShowSourceButton({ filePath, className }: ShowSourceButtonProps) {
-  const baseUrl = "https://github.com/iloveitaly/shadcn-registry-template-github-pages"
+}) {
+  const baseUrl = import.meta.env.VITE_GITHUB_REPO_URL
   const branch = import.meta.env.VITE_GITHUB_BRANCH || "main"
   const url = `${baseUrl}/blob/${branch}/${filePath}`
 
