@@ -45,7 +45,7 @@ export default function Home() {
           different types of components, so users can easily contribute back.
         </p>
         <pre className="mt-2 rounded-lg bg-slate-100 p-4">
-          <code className="text-sm text-slate-900">npx shadcn add button</code>
+          <code className="text-sm text-slate-900">pnpx shadcn add https://iloveitaly.github.io/shadcn-registry-template-github-pages/r/example-form.json</code>
         </pre>
       </header>
 
