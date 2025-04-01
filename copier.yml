@@ -13,10 +13,8 @@ _jinja_extensions:
 _message_after_copy: |
   Next steps:
 
-    1. Customize secrets in .envrc
-    2. Run `direnv allow`
-    3. Set PYPI_API_TOKEN on GH actions
-    4. Set GH_TOKEN on GH actions
+    4. Set GH_TOKEN_PAGES on GH actions
+    2. Update the keywords and description in package.json
 
 project_name:
   type: str
@@ -34,12 +32,12 @@ project_name_snake_case:
 
 full_name:
   type: str
-  help: Full name of the project owner (for pypi)
+  help: Full name of the project owner
   default: "{{ \"git config --global user.name\" | shell() | trim }}"
 
 email:
   type: str
-  help: Email of the project owner (for pypi)
+  help: Email of the project owner
   default: "{{ \"git config --global user.email\" | shell() | trim }}"
 
 github_username:
@@ -47,22 +45,26 @@ github_username:
   help: GitHub username of the project owner (for pypi)
   default: "{{ \"gh api user --jq '.login'\" | shell() | trim }}"
 
+github_url:
+  type: str
+  default: "https://github.com/{{ github_username }}/{{ project_name }}"
+
+github_pages_url:
+  type: str
+  default: "https://{{ github_username }}.github.io/{{ project_name }}"
+
 _exclude:
   - TODO
   - /.git
   - /README.md
   - /CHANGELOG.md
   - /LICENSE
-  - /uv.lock
-  - /metadata.json
 
 _tasks:
   - '[ ! -d .git ] && git init'
   - touch README.md
-  - uv sync
   - git add -A
   - git commit -m "🎉 Initial commit"
-  # - ["{{ _copier_python }}", .copier/bootstrap.py]
 
 # although it's annoying to have the .copier-answers.yml file in the root, it allows `copier update`
 # to work properly

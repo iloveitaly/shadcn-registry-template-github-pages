@@ -8,7 +8,8 @@ interface ShowSourceButtonProps {
 
 export function ShowSourceButton({ filePath, className }: ShowSourceButtonProps) {
   const baseUrl = "https://github.com/iloveitaly/shadcn-registry-template-github-pages"
-  const url = `${baseUrl}/blob/master/${filePath}`
+  const branch = import.meta.env.VITE_GITHUB_BRANCH || "main"
+  const url = `${baseUrl}/blob/${branch}/${filePath}`
 
   return (
     <Button

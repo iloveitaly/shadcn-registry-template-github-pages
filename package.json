@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "description": "A template for creating a registry of shadcn component registries, without next, and hosting them on GitHub Pages.",
+  "keywords": [
+    "shadcn",
+    "shadcn-ui",
+    "shadcn-registry"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
