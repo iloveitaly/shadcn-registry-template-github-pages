@@ -1,8 +1,9 @@
 import * as React from "react"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
-import { HelloWorld } from "@/registry/new-york/hello-world/hello-world"
-import { ExampleForm } from "@/registry/new-york/example-form/example-form"
-import PokemonPage from "@/registry/new-york/complex-component/page"
+import { ShowSourceButton } from "@/components/show-source-button"
+import HelloWorldExample from "@/app/examples/hello-world"
+import ExampleFormExample from "@/app/examples/example-form"
+import ComplexComponentExample from "@/app/examples/complex-component"
 
 // This page displays items from the custom registry.
 // You are free to implement this with your own design as needed.
@@ -11,17 +12,21 @@ interface ComponentDisplayProps {
   name: string;
   description: string;
   minHeight?: string;
+  filePath: string;
   children: React.ReactNode;
 }
 
-function ComponentDisplay({ name, description, minHeight = "400px", children }: ComponentDisplayProps) {
+function ComponentDisplay({ name, description, minHeight = "400px", filePath, children }: ComponentDisplayProps) {
   return (
     <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
       <div className="flex items-center justify-between">
         <h2 className="text-sm text-muted-foreground sm:pl-3">
           {description}
         </h2>
-        <OpenInV0Button name={name} className="w-fit" />
+        <div className="flex gap-2">
+          <ShowSourceButton filePath={filePath} />
+          <OpenInV0Button name={name} />
+        </div>
       </div>
       <div className={`flex items-center justify-center min-h-[${minHeight}] relative`}>
         {children}
@@ -48,23 +53,26 @@ export default function Home() {
         <ComponentDisplay
           name="hello-world"
           description="A simple hello world component"
+          filePath="app/examples/hello-world.tsx"
         >
-          <HelloWorld />
+          <HelloWorldExample />
         </ComponentDisplay>
 
         <ComponentDisplay
           name="example-form"
           description="A contact form with Zod validation."
           minHeight="500px"
+          filePath="app/examples/example-form.tsx"
         >
-          <ExampleForm />
+          <ExampleFormExample />
         </ComponentDisplay>
 
         <ComponentDisplay
           name="complex-component"
           description="A complex component showing hooks, libs and components."
+          filePath="app/examples/complex-component.tsx"
         >
-          <PokemonPage />
+          <ComplexComponentExample />
         </ComponentDisplay>
       </main>
     </div>
