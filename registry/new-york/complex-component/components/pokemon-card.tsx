@@ -1,14 +1,17 @@
-import { cache } from "react"
-import { getPokemon } from "@/registry/new-york/complex-component/lib/pokemon"
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { PokemonImage } from "@/registry/new-york/complex-component/components/pokemon-image"
+import { usePokemon } from "@/registry/new-york/complex-component/hooks/use-pokemon"
 
-const cachedGetPokemon = cache(getPokemon)
+export function PokemonCard({ name }: { name: string }) {
+  const { pokemon, loading, error } = usePokemon(name)
 
-export async function PokemonCard({ name }: { name: string }) {
-  const pokemon = await cachedGetPokemon(name)
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
-  if (!pokemon) {
+  if (error || !pokemon) {
     return null
   }
 

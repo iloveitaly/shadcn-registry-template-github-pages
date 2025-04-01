@@ -1,11 +1,19 @@
-import { cache } from "react"
+"use client"
+
+import * as React from "react"
 import { PokemonCard } from "@/registry/new-york/complex-component/components/pokemon-card"
 import { getPokemonList } from "@/registry/new-york/complex-component/lib/pokemon"
 
-const getCachedPokemonList = cache(getPokemonList)
+export default function Page() {
+  const [pokemons, setPokemons] = React.useState<{ results: { name: string }[] } | null>(null)
 
-export default async function Page() {
-  const pokemons = await getCachedPokemonList({ limit: 12 })
+  React.useEffect(() => {
+    async function fetchPokemon() {
+      const result = await getPokemonList({ limit: 12 })
+      setPokemons(result)
+    }
+    fetchPokemon()
+  }, [])
 
   if (!pokemons) {
     return null
