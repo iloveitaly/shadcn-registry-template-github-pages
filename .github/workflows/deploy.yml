@@ -39,11 +39,8 @@ jobs:
           enablement: true
           token: ${{ secrets.GH_TOKEN_PAGES }}
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+      - run: pnpm install
+      - run: pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
