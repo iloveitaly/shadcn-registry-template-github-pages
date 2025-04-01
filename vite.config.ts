@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/shadcn-registry-template-github-pages/",
   plugins: [react()],
   resolve: {
     alias: {
