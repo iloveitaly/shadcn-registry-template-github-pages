@@ -37,6 +37,7 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+          token: ${{ secrets.GH_TOKEN_PAGES }}
 
       - name: Install dependencies
         run: npm ci
