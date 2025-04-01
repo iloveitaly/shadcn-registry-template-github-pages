@@ -8,16 +8,15 @@ interface ShowSourceButtonProps {
 
 export function ShowSourceButton({ filePath, className }: ShowSourceButtonProps) {
   const baseUrl = "https://github.com/iloveitaly/shadcn-registry-template-github-pages"
-  const url = `${baseUrl}/blob/main/${filePath}`
+  const url = `${baseUrl}/blob/master/${filePath}`
 
   return (
     <Button
       variant="outline"
-      size="sm"
-      className={className}
+      className={`h-7 gap-1 rounded-lg px-3 text-xs ${className}`}
       onClick={() => window.open(url, "_blank")}
     >
-      <ExternalLink className="mr-2 h-4 w-4" />
+      <ExternalLink className="h-4 w-4" />
       Show Source
     </Button>
   )
