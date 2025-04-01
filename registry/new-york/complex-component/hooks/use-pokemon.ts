@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useState } from "react"
 import { getPokemon, getPokemonList } from "@/registry/new-york/complex-component/lib/pokemon"
 

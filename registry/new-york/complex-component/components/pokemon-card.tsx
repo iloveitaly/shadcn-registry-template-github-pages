@@ -1,5 +1,3 @@
-"use client"
-
 import { Card, CardContent } from "@/components/ui/card"
 import { PokemonImage } from "@/registry/new-york/complex-component/components/pokemon-image"
 import { usePokemon } from "@/registry/new-york/complex-component/hooks/use-pokemon"

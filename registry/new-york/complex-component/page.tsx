@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { PokemonCard } from "@/registry/new-york/complex-component/components/pokemon-card"
 import { getPokemonList } from "@/registry/new-york/complex-component/lib/pokemon"
