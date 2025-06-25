@@ -19,7 +19,7 @@ _message_after_copy: |
 project_name:
   type: str
   help: Dash separated project slug
-  default: "{{ \"basename $({{ _copier_conf.dst_path }})\" | shell() | trim | regex_replace(' ', '-') | regex_replace('_', '-') }}"
+  default: "{{ \"basename $(pwd)\" | shell() | trim | regex_replace(' ', '-') | regex_replace('_', '-') }}"
   validator: >-
     {% if not (project_name | regex_search('^[a-z][a-z0-9-_]+$')) %}
     project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
