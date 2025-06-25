@@ -9,7 +9,7 @@ export function ShowSourceButton({
   className?: string
 }) {
   const baseUrl = import.meta.env.VITE_GITHUB_REPO_URL
-  const branch = import.meta.env.VITE_GITHUB_BRANCH || "main"
+  const branch = import.meta.env.VITE_GITHUB_BRANCH || "master"
   const url = `${baseUrl}/blob/${branch}/${filePath}`
 
   return (
