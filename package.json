@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "A template for creating a registry of shadcn component registries, without next, and hosting them on GitHub Pages.",
+  "homepage": "https://iloveitaly.github.io/shadcn-registry-template-github-pages",
   "keywords": [
     "shadcn",
     "shadcn-ui",
