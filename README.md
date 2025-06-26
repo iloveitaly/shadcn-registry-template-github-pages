@@ -48,8 +48,13 @@ Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view th
 Help with generating example components:
 
 ```
-<ComponentDisplay/> should exist only on the `page.tsx` and not within each example in `app/examples`.
-```
+Create a couple of examples of how to use the components in #file:registry 
+
+* <ComponentDisplay/> should exist only on the `page.tsx` and not within each example in `app/examples`.
+* Examples should be created in `app/examples/`
+* Add the examples to #file:page.tsx , removing the existing examples
+* Don't use `<Card/>` and similar components. Assume the example will already be wrapped in a nice UI elements.
+* Use the code block(s) below (pulled from another project) as example(s) of how to use the components and the type of examples you should generate```
 
 Add JSDocs to your component:
 
