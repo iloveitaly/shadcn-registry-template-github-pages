@@ -1,14 +1,22 @@
 import * as React from "react"
-import { Button } from "@/components/ui/button"
+
 import { Copy } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface RegistryCommandProps {
   registryId: string
 }
 
 export function RegistryCommand({ registryId }: RegistryCommandProps) {
-  const command = `pnpx shadcn add https://iloveitaly.github.io/shadcn-registry-template-github-pages/r/${registryId}.json`
+  const repoUrl = import.meta.env.VITE_GITHUB_PAGES_URL
+  const command = `pnpx shadcn add ${repoUrl}/r/${registryId}.json`
 
   const [copied, setCopied] = React.useState(false)
   const [tooltipOpen, setTooltipOpen] = React.useState(false)
@@ -25,10 +33,7 @@ export function RegistryCommand({ registryId }: RegistryCommandProps) {
         <code className="text-sm text-slate-900">{command}</code>
       </pre>
       <TooltipProvider>
-        <Tooltip
-          open={copied || tooltipOpen}
-          onOpenChange={setTooltipOpen}
-        >
+        <Tooltip open={copied || tooltipOpen} onOpenChange={setTooltipOpen}>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
