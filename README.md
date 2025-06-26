@@ -9,10 +9,15 @@ wider community (and enable the community to contribute to it).
 - I hate vercel / next and I just want static JavaScript.
 - I wanted to [use copier](https://copier.readthedocs.io/en/stable/) to manage my registries and update them all from a single master template.
 
-## Copying
+## Using This Template
+
+It's better to first make the directory representing the repo and then copy the template into it:
 
 ```shell
-uv tool run --with jinja2_shell_extension copier@latest copy --trust https://github.com/shadcn-ui/registry-template shadcn-registry-template-github-pages
+mkdir shadcn-new-component
+cd shadcn-new-component
+
+uv tool run --with jinja2_shell_extension copier@latest copy --trust https://github.com/iloveitaly/shadcn-registry-template-github-pages .
 ```
 
 ## Getting Started
