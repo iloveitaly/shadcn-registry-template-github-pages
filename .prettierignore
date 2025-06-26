@@ -1,2 +1,3 @@
 /components/ui
-pnpm*.yaml
+*.yaml
+*.yml
