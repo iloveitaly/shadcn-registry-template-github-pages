@@ -2,6 +2,7 @@
 #
 #   - any extensions must be installed manually
 #   - you cannot use dst_path as default answers
+#   - you cannot use dst_path shell scripts
 
 _min_copier_version: 9.4.1
 
@@ -17,7 +18,7 @@ _message_after_copy: |
   2. Copy your component code into registry/new-york
   3. Set GH_TOKEN_PAGES on GH actions. `gh secret set GH_TOKEN_PAGES --app actions --body YOUR_FINE_GRAINED_TOKEN`
   4. Set GITHUB_TOKEN on GH actions.
-  5. Update the keywords and description in package.json
+  5. Update the keywords and description in package.json. Use prompts in the readme to make it easier.
   6. `pnpm install && pnpm run dev` to development and test your component
 
 project_name:
@@ -34,19 +35,9 @@ project_name_snake_case:
   when: false
   default: "{{ project_name | lower | replace('-', '_') }}"
 
-full_name:
-  type: str
-  help: Full name of the project owner
-  default: '{{ "git config --global user.name" | shell() | trim }}'
-
-email:
-  type: str
-  help: Email of the project owner
-  default: '{{ "git config --global user.email" | shell() | trim }}'
-
 github_username:
   type: str
-  help: GitHub username of the project owner (for pypi)
+  help: GitHub username of the project owner
   default: '{{ "gh api user --jq ''.login''" | shell() | trim }}'
 
 github_url:
@@ -68,8 +59,9 @@ _exclude:
 
 _tasks:
   - "[ ! -d .git ] && git init"
-  - touch README.md
+  - cp .copier/README.md README.md
   - git add -A
   - git commit -m "🎉 Initial commit"
+
 # although it's annoying to have the .copier-answers.yml file in the root, it allows `copier update`
-# to work properly
+# to work properly.
