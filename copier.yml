@@ -55,6 +55,7 @@ _exclude:
   - /CHANGELOG.md
   - /LICENSE
   - /app/examples
+  - /registry/new-york
   - /TODO
 
 _tasks:

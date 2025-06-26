@@ -16,7 +16,11 @@ It's better to first make the directory representing the repo and then copy the 
 ```shell
 mkdir shadcn-new-component
 cd shadcn-new-component
+```
 
+Then run the copier command to copy the template into the current directory:
+
+```shell
 uv tool run --with jinja2_shell_extension copier@latest copy --trust https://github.com/iloveitaly/shadcn-registry-template-github-pages .
 ```
 
