@@ -42,6 +42,7 @@ Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view th
 ## Other Registry Templates
 
 - https://github.com/shadcn-ui/registry-template-v4/
+- https://github.com/ilyichv/hookagain
 
 ## Prompts
 
