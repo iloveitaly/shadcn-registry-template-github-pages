@@ -3,6 +3,7 @@ import * as React from "react"
 import ComplexComponentExample from "@/app/examples/complex-component"
 import ExampleFormExample from "@/app/examples/example-form"
 import HelloWorldExample from "@/app/examples/hello-world"
+import { GitHubForkRibbon } from "@/components/github-fork-ribbon"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
 import { RegistryCommand } from "@/components/registry-command"
 import { ShowSourceButton } from "@/components/show-source-button"
@@ -45,8 +46,10 @@ function ComponentDisplay({
 
 export default function Home() {
   return (
-    <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
-      <header className="flex flex-col gap-1 space-y-6 mb-6">
+    <>
+      <GitHubForkRibbon />
+      <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
+        <header className="flex flex-col gap-1 space-y-6 mb-6">
         <h1 className="text-3xl font-bold tracking-tight">
           Custom ShadCN Registry
         </h1>
@@ -85,5 +88,6 @@ export default function Home() {
         </ComponentDisplay>
       </main>
     </div>
+    </>
   )
 }
