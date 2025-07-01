@@ -30,7 +30,7 @@ export function GitHubForkRibbon() {
           text-indent: -999999px;
         }
 
-        .github-fork-ribbon.fixed {
+      .github-fork-ribbon.fixed {
           position: fixed;
         }
 

@@ -49,13 +49,13 @@ Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view th
 Paste in the component from your
 
 ```
-Below is a component. I want you to add it to a file in `registry/new-york`. I will be pushing this component for easy reuse. 
+Below is a component. I want you to add it to a file in `registry/new-york`. I will be pushing this component for easy reuse.
 ```
 
 Help with generating example components:
 
 ```
-Create a couple of examples of how to use the components in #file:registry 
+Create a couple of examples of how to use the components in #file:registry
 
 * <ComponentDisplay/> should exist only on the `page.tsx` and not within each example in `app/examples`.
 * Examples should be created in `app/examples/`

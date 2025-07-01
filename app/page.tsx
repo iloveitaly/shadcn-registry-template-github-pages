@@ -50,44 +50,44 @@ export default function Home() {
       <GitHubForkRibbon />
       <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
         <header className="flex flex-col gap-1 space-y-6 mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Custom ShadCN Registry
-        </h1>
-        <p className="text-muted-foreground">
-          A custom registry for distribing shadcn components using shadcn. I
-          recommend using multiple registries for different types of components,
-          so users can easily contribute back.
-        </p>
-        <RegistryCommand registryId="example-form" />
-      </header>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Custom ShadCN Registry
+          </h1>
+          <p className="text-muted-foreground">
+            A custom registry for distribing shadcn components using shadcn. I
+            recommend using multiple registries for different types of
+            components, so users can easily contribute back.
+          </p>
+          <RegistryCommand registryId="example-form" />
+        </header>
 
-      <main className="flex flex-col flex-1 gap-8">
-        <ComponentDisplay
-          name="hello-world"
-          description="A simple hello world component"
-          filePath="app/examples/hello-world.tsx"
-        >
-          <HelloWorldExample />
-        </ComponentDisplay>
+        <main className="flex flex-col flex-1 gap-8">
+          <ComponentDisplay
+            name="hello-world"
+            description="A simple hello world component"
+            filePath="app/examples/hello-world.tsx"
+          >
+            <HelloWorldExample />
+          </ComponentDisplay>
 
-        <ComponentDisplay
-          name="example-form"
-          description="A contact form with Zod validation."
-          minHeight="500px"
-          filePath="app/examples/example-form.tsx"
-        >
-          <ExampleFormExample />
-        </ComponentDisplay>
+          <ComponentDisplay
+            name="example-form"
+            description="A contact form with Zod validation."
+            minHeight="500px"
+            filePath="app/examples/example-form.tsx"
+          >
+            <ExampleFormExample />
+          </ComponentDisplay>
 
-        <ComponentDisplay
-          name="complex-component"
-          description="A complex component showing hooks, libs and components."
-          filePath="app/examples/complex-component.tsx"
-        >
-          <ComplexComponentExample />
-        </ComponentDisplay>
-      </main>
-    </div>
+          <ComponentDisplay
+            name="complex-component"
+            description="A complex component showing hooks, libs and components."
+            filePath="app/examples/complex-component.tsx"
+          >
+            <ComplexComponentExample />
+          </ComponentDisplay>
+        </main>
+      </div>
     </>
   )
 }
