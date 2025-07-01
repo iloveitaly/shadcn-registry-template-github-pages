@@ -46,6 +46,12 @@ Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view th
 
 ## Prompts
 
+Paste in the component from your
+
+```
+Below is a component. I want you to add it to a file in `registry/new-york`. I will be pushing this component for easy reuse. 
+```
+
 Help with generating example components:
 
 ```
@@ -55,7 +61,8 @@ Create a couple of examples of how to use the components in #file:registry
 * Examples should be created in `app/examples/`
 * Add the examples to #file:page.tsx , removing the existing examples
 * Don't use `<Card/>` and similar components. Assume the example will already be wrapped in a nice UI elements.
-* Use the code block(s) below (pulled from another project) as example(s) of how to use the components and the type of examples you should generate```
+* Use the code block(s) below (pulled from another project) as example(s) of how to use the components and the type of examples you should generate
+```
 
 Add JSDocs to your component:
 
@@ -70,7 +77,7 @@ Update #file:README.md by reading the code in #file:registry and using the conte
 
 Also:
 
-- Update registry.json with the GitHub Pages URL
+- Update registry.json with the GitHub Pages URL, required dependencies (npm packages), and any component dependencies (i.e. `components/ui` imports; add these to the `registryDependencies` array). You can remove any unrelated registry.json entries.
 - Update index.html with a descriptive title and description
 - Update package.json with a better description and keywords
 ```
