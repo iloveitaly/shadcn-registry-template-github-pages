@@ -17,7 +17,7 @@ _message_after_copy: |
   1. Add examples in app/examples/ for your component
   2. Copy your component code into registry/new-york
   3. Set GH_TOKEN_PAGES on GH actions. `gh secret set GH_TOKEN_PAGES --app actions --body YOUR_FINE_GRAINED_TOKEN`
-  4. Set GITHUB_TOKEN on GH actions.
+  4. Set GH_PERSONAL_TOKEN on GH actions. This is for metadata syncing.
   5. Update the keywords and description in package.json. Use prompts in the readme to make it easier.
   6. `pnpm install && pnpm run dev` to development and test your component
 
