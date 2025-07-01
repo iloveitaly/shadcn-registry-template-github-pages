@@ -1,5 +1,3 @@
-import * as React from "react"
-
 /**
  * GitHub fork ribbon component that displays a "Fork me on GitHub" ribbon
  * in the top-right corner of the page.
