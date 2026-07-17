@@ -1,3 +1,11 @@
+allowBuilds:
+  '@tailwindcss/oxide': true
+  esbuild: true
+  msw: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - lucide-react@1.25.0
+  - shadcn@4.13.1
 onlyBuiltDependencies:
   - esbuild
   - msw
