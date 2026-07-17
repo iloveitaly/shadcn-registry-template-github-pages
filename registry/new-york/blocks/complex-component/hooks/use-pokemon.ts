@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import {
   getPokemon,
   getPokemonList,
-} from "@/registry/new-york/complex-component/lib/pokemon"
+} from "@/registry/new-york/blocks/complex-component/lib/pokemon"
 
 // Totally unnecessary hook, but it's a good example of how to use a hook in a custom registry.
 

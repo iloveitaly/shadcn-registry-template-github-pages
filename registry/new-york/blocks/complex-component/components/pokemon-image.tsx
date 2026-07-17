@@ -1,4 +1,4 @@
-import { usePokemonImage } from "@/registry/new-york/complex-component/hooks/use-pokemon"
+import { usePokemonImage } from "@/registry/new-york/blocks/complex-component/hooks/use-pokemon"
 
 export function PokemonImage({
   name,

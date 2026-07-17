@@ -46,6 +46,7 @@ jobs:
           echo "VITE_GITHUB_PAGES_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
 
       - run: pnpm install
+      - run: pnpm run registry:validate
       - run: pnpm run registry:build
       - run: pnpm run build
 

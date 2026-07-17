@@ -16,7 +16,8 @@
     "start": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "registry:build": "shadcn registry:build",
+    "registry:build": "shadcn build",
+    "registry:validate": "shadcn registry validate",
     "upgrade:shadcn": "npx --yes shadcn@canary add --all --overwrite --yes",
     "upgrade:packages": "pnpx npm-check-updates --interactive --format group"
   },

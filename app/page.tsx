@@ -2,6 +2,7 @@ import * as React from "react"
 
 import ComplexComponentExample from "@/app/examples/complex-component"
 import ExampleFormExample from "@/app/examples/example-form"
+import ExampleWithCssExample from "@/app/examples/example-with-css"
 import HelloWorldExample from "@/app/examples/hello-world"
 import { GitHubForkRibbon } from "@/components/github-fork-ribbon"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
@@ -85,6 +86,14 @@ export default function Home() {
             filePath="app/examples/complex-component.tsx"
           >
             <ComplexComponentExample />
+          </ComponentDisplay>
+
+          <ComponentDisplay
+            name="example-with-css"
+            description="A login form with a CSS file."
+            filePath="app/examples/example-with-css.tsx"
+          >
+            <ExampleWithCssExample />
           </ComponentDisplay>
         </main>
       </div>
