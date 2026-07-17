@@ -12,35 +12,73 @@ export function usePokemonImage(number: number) {
 }
 
 export function usePokemon(name: string) {
-  const [pokemon, setPokemon] =
-    useState<Awaited<ReturnType<typeof getPokemon>>>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+  const [state, setState] = useState<{
+    name: string
+    pokemon: Awaited<ReturnType<typeof getPokemon>>
+    error: Error | null
+  } | null>(null)
 
   useEffect(() => {
-    setLoading(true)
+    let cancelled = false
+
     getPokemon(name)
-      .then(setPokemon)
-      .catch(setError)
-      .finally(() => setLoading(false))
+      .then((pokemon) => {
+        if (!cancelled) {
+          setState({ name, pokemon, error: null })
+        }
+      })
+      .catch((error: Error) => {
+        if (!cancelled) {
+          setState({ name, pokemon: null, error })
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
   }, [name])
 
-  return { pokemon, loading, error }
+  const loading = state?.name !== name
+
+  return {
+    pokemon: loading ? null : (state?.pokemon ?? null),
+    loading,
+    error: loading ? null : (state?.error ?? null),
+  }
 }
 
 export function usePokemonList(limit?: number) {
-  const [pokemonList, setPokemonList] =
-    useState<Awaited<ReturnType<typeof getPokemonList>>>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+  const [state, setState] = useState<{
+    limit: number | undefined
+    pokemonList: Awaited<ReturnType<typeof getPokemonList>>
+    error: Error | null
+  } | null>(null)
 
   useEffect(() => {
-    setLoading(true)
+    let cancelled = false
+
     getPokemonList({ limit })
-      .then(setPokemonList)
-      .catch(setError)
-      .finally(() => setLoading(false))
+      .then((pokemonList) => {
+        if (!cancelled) {
+          setState({ limit, pokemonList, error: null })
+        }
+      })
+      .catch((error: Error) => {
+        if (!cancelled) {
+          setState({ limit, pokemonList: null, error })
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
   }, [limit])
 
-  return { pokemonList, loading, error }
+  const loading = state?.limit !== limit
+
+  return {
+    pokemonList: loading ? null : (state?.pokemonList ?? null),
+    loading,
+    error: loading ? null : (state?.error ?? null),
+  }
 }

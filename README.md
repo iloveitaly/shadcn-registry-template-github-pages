@@ -48,6 +48,16 @@ Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view th
 
 ## Prompts
 
+Sync important changes from the official upstream template:
+
+```
+https://github.com/shadcn-ui/registry-template
+
+Take a look at this repo since the last published/public commit on this repo. What changes or improvements could we pull from this upstream template?
+
+Keep in mind this project is a Vite + static GitHub Pages fork (not Next.js). Prefer registry layout, CLI, schema, examples, and docs improvements. Skip Next-only deps, RSC-only patterns, and CVE bumps that do not apply here.
+```
+
 Paste in the component from your
 
 ```

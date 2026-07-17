@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@/registry/new-york/ui/card"
 import { PokemonImage } from "@/registry/new-york/blocks/complex-component/components/pokemon-image"
 import { usePokemon } from "@/registry/new-york/blocks/complex-component/hooks/use-pokemon"
+import { Card, CardContent } from "@/registry/new-york/ui/card"
 
 export function PokemonCard({ name }: { name: string }) {
   const { pokemon, loading, error } = usePokemon(name)

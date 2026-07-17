@@ -27,7 +27,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   // important change from the default
   pluginReact.configs.flat["jsx-runtime"],
-  reactHooks.configs["recommended-latest"],
+  reactHooks.configs.flat["recommended-latest"],
   jsxA11y.flatConfigs.strict,
   {
     // TODO once this plugin is updated, we should be able to use a config like other plugins

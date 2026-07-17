@@ -33,9 +33,9 @@ export function ExampleCard() {
             </button>
           </div>
           <div className="form-footer">
-            <a href="#" className="forgot-password">
+            <button type="button" className="forgot-password">
               Forgot password?
-            </a>
+            </button>
           </div>
         </form>
       </div>
