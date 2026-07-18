@@ -34,7 +34,7 @@ jobs:
       - uses: jdx/mise-action@v2
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         with:
           enablement: true
           token: ${{ secrets.GH_TOKEN_PAGES }}
