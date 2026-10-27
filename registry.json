@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
+  "name": "shadcn-registry-template-github-pages",
+  "homepage": "https://iloveitaly.github.io/shadcn-registry-template-github-pages/",
   "items": [
     {
       "name": "hello-world",
@@ -21,8 +21,8 @@
       "type": "registry:component",
       "title": "Example Form",
       "description": "A contact form with Zod validation.",
-      "dependencies": ["zod"],
-      "registryDependencies": ["button", "input", "label", "textarea", "card"],
+      "dependencies": ["zod@^4.6.7"],
+      "registryDependencies": ["button", "input", "textarea", "card", "field"],
       "files": [
         {
           "path": "registry/new-york/blocks/example-form/example-form.tsx",
@@ -32,15 +32,14 @@
     },
     {
       "name": "complex-component",
-      "type": "registry:component",
+      "type": "registry:block",
       "title": "Complex Component",
       "description": "A complex component showing hooks, libs and components.",
       "registryDependencies": ["card"],
       "files": [
         {
-          "path": "registry/new-york/blocks/complex-component/page.tsx",
-          "type": "registry:page",
-          "target": "app/pokemon/page.tsx"
+          "path": "registry/new-york/blocks/complex-component/pokemon-list.tsx",
+          "type": "registry:component"
         },
         {
           "path": "registry/new-york/blocks/complex-component/components/pokemon-card.tsx",
@@ -58,7 +57,8 @@
           "path": "registry/new-york/blocks/complex-component/hooks/use-pokemon.ts",
           "type": "registry:hook"
         }
-      ]
+      ],
+      "dependencies": ["zod@^4.6.7"]
     },
     {
       "name": "example-with-css",

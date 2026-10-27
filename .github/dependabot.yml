@@ -1,12 +1,25 @@
 version: 2
-
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "npm"
-    directory: "/"
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: weekly
+    cooldown:
+      default-days: 2
+    groups:
+      react:
+        patterns: [react, react-dom, "@types/react", "@types/react-dom"]
+      tailwind:
+        patterns: [tailwindcss, "@tailwindcss/*", tw-animate-css]
+      lint:
+        patterns: [eslint, "@eslint/*", eslint-*, typescript-eslint]
+      non-breaking:
+        patterns: ["*"]
+        update-types: [minor, patch]

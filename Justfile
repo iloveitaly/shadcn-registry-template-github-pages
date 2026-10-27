@@ -13,11 +13,10 @@ clean:
 
 # Update copier template from upstream
 update_from_upstream_template:
-    uv tool run --with jinja2_shell_extension \
-        copier@latest update --vcs-ref=HEAD --trust --skip-tasks --skip-answered
+    bash .copier/update.sh
 
-# set workflow permissions, update metadata, and protect master; all in one command
-github_setup: github_repo_permissions_create github_repo_set_metadata github_ruleset_protect_master_create
+# Sync public repository metadata. Pages uses the built-in GITHUB_TOKEN.
+github_setup: github_repo_set_metadata
 
 GITHUB_PROTECT_MASTER_RULESET := """
 {
@@ -97,14 +96,6 @@ github_rerun_failed:
 
     echo "Rerunning failed jobs for run $ID..."
     gh run rerun "$ID" --failed
-
-# Set GitHub Actions permissions for the repository to allow workflows to write and approve PR reviews
-github_repo_permissions_create:
-    repo_path=$(just _github_repo) && \
-      gh api --method PUT "/repos/${repo_path}/actions/permissions/workflow" \
-        -f default_workflow_permissions=write \
-        -F can_approve_pull_request_reviews=true && \
-      gh api "/repos/${repo_path}/actions/permissions/workflow"
 
 # Sync GitHub repo description, homepage, and topics from package.json
 github_repo_set_metadata:

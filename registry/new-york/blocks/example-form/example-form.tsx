@@ -1,7 +1,8 @@
-import * as React from "react"
-import { z } from "zod"
+"use client"
 
-import { Button } from "@/registry/new-york/ui/button"
+import { useId, useState, type FormEvent } from "react"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -9,153 +10,94 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york/ui/card"
-import { Input } from "@/registry/new-york/ui/input"
-import { Label } from "@/registry/new-york/ui/label"
-import { Textarea } from "@/registry/new-york/ui/textarea"
+} from "@/components/ui/card"
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
-const exampleFormSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  message: z.string().min(1),
+const schema = z.object({
+  name: z.string().trim().min(1, "Enter your name."),
+  email: z.email("Enter a valid email address."),
+  message: z.string().trim().min(1, "Enter a message."),
 })
 
 export function ExampleForm() {
-  const [pending, setPending] = React.useState(false)
-  const [state, setState] = React.useState({
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-    success: false,
-    errors: {
-      name: "",
-      email: "",
-      message: "",
-    },
-  })
+  const id = useId()
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof z.infer<typeof schema>, string[]>>
+  >({})
+  const [success, setSuccess] = useState(false)
 
-  const handleSubmit = React.useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      setPending(true)
-
-      const formData = new FormData(e.target as HTMLFormElement)
-      const data = Object.fromEntries(formData.entries())
-      const result = exampleFormSchema.safeParse(data)
-
-      if (!result.success) {
-        setState({
-          ...state,
-          errors: Object.fromEntries(
-            Object.entries(result.error.flatten().fieldErrors).map(
-              ([key, value]) => [key, value?.[0] ?? ""],
-            ),
-          ) as Record<keyof typeof state.errors, string>,
-        })
-        setPending(false)
-        return
-      }
-
-      setPending(false)
-    },
-    [state],
-  )
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const result = schema.safeParse(
+      Object.fromEntries(new FormData(event.currentTarget)),
+    )
+    setErrors(result.success ? {} : z.flattenError(result.error).fieldErrors)
+    setSuccess(result.success)
+  }
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>How can we help?</CardTitle>
         <CardDescription>
-          Need help with your project? We&apos;re here to assist you.
+          Try this form to see validation in action.
         </CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit}>
-        <CardContent className="flex flex-col gap-6">
-          <div
-            className="group/field grid gap-2"
-            data-invalid={!!state.errors?.name}
-          >
-            <Label
-              htmlFor="name"
-              className="group-data-[invalid=true]/field:text-destructive"
-            >
-              Name <span aria-hidden="true">*</span>
-            </Label>
-            <Input
-              id="name"
-              name="name"
-              placeholder="Lee Robinson"
-              className="group-data-[invalid=true]/field:border-destructive focus-visible:group-data-[invalid=true]/field:ring-destructive"
-              disabled={pending}
-              aria-invalid={!!state.errors?.name}
-              aria-errormessage="error-name"
-              defaultValue={state.defaultValues.name}
-            />
-            {state.errors?.name && (
-              <p id="error-name" className="text-destructive text-sm">
-                {state.errors.name}
-              </p>
-            )}
-          </div>
-          <div
-            className="group/field grid gap-2"
-            data-invalid={!!state.errors?.email}
-          >
-            <Label
-              htmlFor="email"
-              className="group-data-[invalid=true]/field:text-destructive"
-            >
-              Email <span aria-hidden="true">*</span>
-            </Label>
-            <Input
-              id="email"
-              name="email"
-              placeholder="leerob@acme.com"
-              className="group-data-[invalid=true]/field:border-destructive focus-visible:group-data-[invalid=true]/field:ring-destructive"
-              disabled={pending}
-              aria-invalid={!!state.errors?.email}
-              aria-errormessage="error-email"
-              defaultValue={state.defaultValues.email}
-            />
-            {state.errors?.email && (
-              <p id="error-email" className="text-destructive text-sm">
-                {state.errors.email}
-              </p>
-            )}
-          </div>
-          <div
-            className="group/field grid gap-2"
-            data-invalid={!!state.errors?.message}
-          >
-            <Label
-              htmlFor="message"
-              className="group-data-[invalid=true]/field:text-destructive"
-            >
-              Message <span aria-hidden="true">*</span>
-            </Label>
-            <Textarea
-              id="message"
-              name="message"
-              placeholder="Type your message here..."
-              className="group-data-[invalid=true]/field:border-destructive focus-visible:group-data-[invalid=true]/field:ring-destructive"
-              disabled={pending}
-              aria-invalid={!!state.errors?.message}
-              aria-errormessage="error-message"
-              defaultValue={state.defaultValues.message}
-            />
-            {state.errors?.message && (
-              <p id="error-message" className="text-destructive text-sm">
-                {state.errors.message}
-              </p>
-            )}
-          </div>
+      <form onSubmit={handleSubmit} noValidate>
+        <CardContent>
+          <FieldGroup>
+            {(["name", "email", "message"] as const).map((name) => (
+              <Field key={name} data-invalid={!!errors[name]?.length}>
+                <FieldLabel htmlFor={`${id}-${name}`}>
+                  {name[0].toUpperCase() + name.slice(1)}
+                </FieldLabel>
+                {name === "message" ? (
+                  <Textarea
+                    id={`${id}-${name}`}
+                    name={name}
+                    required
+                    aria-invalid={!!errors[name]?.length}
+                    aria-describedby={
+                      errors[name]?.length ? `${id}-${name}-error` : undefined
+                    }
+                  />
+                ) : (
+                  <Input
+                    id={`${id}-${name}`}
+                    name={name}
+                    type={name === "email" ? "email" : "text"}
+                    autoComplete={name}
+                    required
+                    aria-invalid={!!errors[name]?.length}
+                    aria-describedby={
+                      errors[name]?.length ? `${id}-${name}-error` : undefined
+                    }
+                  />
+                )}
+                <FieldError
+                  id={`${id}-${name}-error`}
+                  errors={errors[name]?.map((message) => ({ message }))}
+                />
+              </Field>
+            ))}
+          </FieldGroup>
         </CardContent>
-        <CardFooter>
-          <Button type="submit" size="sm" disabled={pending}>
-            {pending ? "Sending..." : "Send Message"}
+        <CardFooter className="mt-6 flex flex-col items-start gap-3">
+          <Button type="submit" size="sm">
+            Validate message
           </Button>
+          <p role="status" className="text-sm text-muted-foreground">
+            {success
+              ? "Form validated successfully. This demo does not send messages."
+              : ""}
+          </p>
         </CardFooter>
       </form>
     </Card>

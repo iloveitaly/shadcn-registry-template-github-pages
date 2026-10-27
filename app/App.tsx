@@ -1,4 +1,3 @@
-import "./globals.css"
 import Home from "./page"
 
 function App() {

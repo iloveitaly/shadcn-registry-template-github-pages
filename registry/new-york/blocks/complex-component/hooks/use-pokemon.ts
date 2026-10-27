@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 
 import {
@@ -14,7 +16,7 @@ export function usePokemonImage(number: number) {
 export function usePokemon(name: string) {
   const [state, setState] = useState<{
     name: string
-    pokemon: Awaited<ReturnType<typeof getPokemon>>
+    pokemon: Awaited<ReturnType<typeof getPokemon>> | null
     error: Error | null
   } | null>(null)
 
@@ -50,7 +52,7 @@ export function usePokemon(name: string) {
 export function usePokemonList(limit?: number) {
   const [state, setState] = useState<{
     limit: number | undefined
-    pokemonList: Awaited<ReturnType<typeof getPokemonList>>
+    pokemonList: Awaited<ReturnType<typeof getPokemonList>> | null
     error: Error | null
   } | null>(null)
 
@@ -74,7 +76,7 @@ export function usePokemonList(limit?: number) {
     }
   }, [limit])
 
-  const loading = state?.limit !== limit
+  const loading = state === null || state.limit !== limit
 
   return {
     pokemonList: loading ? null : (state?.pokemonList ?? null),

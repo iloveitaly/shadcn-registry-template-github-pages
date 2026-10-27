@@ -6,6 +6,9 @@ on:
 
 jobs:
   repo_sync:
+    if: vars.ENABLE_METADATA_SYNC == 'true'
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Fetching Local Repository

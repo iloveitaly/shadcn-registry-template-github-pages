@@ -1,45 +1,22 @@
-# NOTE some limitations of copier:
-#
-#   - any extensions must be installed manually
-#   - you cannot use dst_path as default answers
-#   - you cannot use dst_path shell scripts
-
-_min_copier_version: 9.4.1
-
+_min_copier_version: 9.19.1
 _answers_file: .copier/.copier-answers.yml
-
-_jinja_extensions:
-  - jinja2_shell_extension.ShellExtension
-
-_message_after_copy: |
-  Next steps:
-
-  1. Add examples in app/examples/ for your component
-  2. Copy your component code into registry/new-york/blocks
-  3. Set GH_TOKEN_PAGES on GH actions. `gh secret set GH_TOKEN_PAGES --app actions --body YOUR_FINE_GRAINED_TOKEN`
-  4. Set GH_PERSONAL_TOKEN on GH actions. This is for metadata syncing. `gh secret set GH_PERSONAL_TOKEN --app actions --body ghp_...`
-  5. Update the keywords and description in package.json. Use prompts in the readme to make it easier.
-  6. `pnpm install && pnpm registry:build && pnpm dev` to install, build the registry, and preview
-  7. After pushing the repo to GitHub: `just github_setup` (workflow permissions, metadata, protect master)
 
 project_name:
   type: str
-  help: Dash separated project slug
-  default: '{{ "basename $(pwd)" | shell() | trim | regex_replace('' '', ''-'') | regex_replace(''_'', ''-'') }}'
+  help: Lowercase repository slug
+  default: my-registry
   validator: >-
-    {% if not (project_name | regex_search('^[a-z][a-z0-9-_]+$')) %}
-    project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
+    {% if not (project_name | regex_search('^[a-z][a-z0-9-]*$')) %}
+    Use lowercase letters, numbers, and dashes, starting with a letter.
     {% endif %}
-
-# https://github.com/superlinear-ai/substrate/blob/main/copier.yml
-project_name_snake_case:
-  when: false
-  default: "{{ project_name | lower | replace('-', '_') }}"
 
 github_username:
   type: str
-  help: GitHub username of the project owner
-  default: '{{ "gh api user --jq ''.login''" | shell() | trim }}'
+  help: GitHub user or organization
+  validator: >-
+    {% if not (github_username | regex_search('^[a-zA-Z0-9][a-zA-Z0-9-]*$')) %}
+    Enter a GitHub user or organization name.
+    {% endif %}
 
 github_url:
   type: str
@@ -47,23 +24,40 @@ github_url:
 
 github_pages_url:
   type: str
-  default: "https://{{ github_username }}.github.io/{{ project_name }}"
+  help: Public site URL (a custom domain is supported)
+  default: "https://{{ github_username }}.github.io/{{ project_name }}/"
 
+# Starter content is copied initially, then owned by the generated project.
 _exclude:
-  - TODO
   - /.git
+  - /node_modules
+  - /dist
+  - /public/r
+  - /coverage
+  - /playwright-report
+  - /test-results
+  - "*.tsbuildinfo"
+  - /copier.yml
   - /README.md
-  - /CHANGELOG.md
-  - /LICENSE
-  - /app/examples
-  - /registry/new-york
-  - /TODO
+  - /scripts/test-template.py
+  - /.github/workflows/template.yml
+  - /.env
+  - /.env.local
+  - "{% if _copier_operation == 'update' %}/registry{% endif %}"
+  - "{% if _copier_operation == 'update' %}/registry.json{% endif %}"
+  - "{% if _copier_operation == 'update' %}/app/examples{% endif %}"
+  - "{% if _copier_operation == 'update' %}/app/page.tsx{% endif %}"
+  - "{% if _copier_operation == 'update' %}/index.html{% endif %}"
 
 _tasks:
-  - "[ ! -d .git ] && git init"
-  - cp .copier/README.md README.md
-  - git add -A
-  - git commit -m "🎉 Initial commit"
+  - command: ["{{ _copier_python }}", .copier/bootstrap.py]
+    when: "{{ _copier_operation == 'copy' }}"
 
-# although it's annoying to have the .copier-answers.yml file in the root, it allows `copier update`
-# to work properly.
+_message_after_copy: |
+  Your registry includes four working examples.
+
+  1. Run `mise install`, then `mise exec -- pnpm install --frozen-lockfile`.
+  2. Run `mise exec -- pnpm dev` to preview or `mise exec -- pnpm build` to build.
+  3. Enable GitHub Pages: Settings → Pages → Source → GitHub Actions.
+  4. Push to your default branch to deploy. No Pages personal access token is needed.
+  5. Add your items to registry.json and previews to app/examples/<item-name>.tsx.

@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Description: this syncs the project with the upstream repo
-
-uv tool run --with jinja2_shell_extension \
-  copier update --trust --skip-tasks --skip-answered \
-  --exclude .copier \
-  --exclude pnpm-lock.yaml \
-  --exclude registry \
-  --exclude app/examples \
-  --exclude app/page.tsx \
-  --exclude index.html
+# The answers file is nested; explicitly pass it so Copier can find it.
+uv tool run copier==9.19.1 update \
+  --answers-file .copier/.copier-answers.yml \
+  --trust --skip-answered "$@"

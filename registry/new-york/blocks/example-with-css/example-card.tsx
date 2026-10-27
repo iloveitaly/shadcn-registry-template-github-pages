@@ -4,7 +4,7 @@ export function ExampleCard() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1 className="login-title">Login</h1>
+        <h3 className="login-title">Login</h3>
         <p className="login-subtitle">
           Please enter your credentials to continue
         </p>

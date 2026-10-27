@@ -1,4 +1,8 @@
-/components/ui
-/registry/new-york/ui
-*.yaml
-*.yml
+pnpm-lock.yaml
+mise.lock
+dist/
+public/r/
+playwright-report/
+test-results/
+*.jinja
+.copier/.copier-answers.yml

@@ -1,12 +1,10 @@
+minimumReleaseAge: 1440
+strictPeerDependencies: true
 allowBuilds:
-  '@tailwindcss/oxide': true
+  "@tailwindcss/oxide": true
   esbuild: true
-  msw: true
   unrs-resolver: true
-minimumReleaseAgeExclude:
-  - lucide-react@1.25.0
-  - shadcn@4.13.1
-onlyBuiltDependencies:
-  - esbuild
-  - msw
-  - unrs-resolver
+# The accessibility plugin works with ESLint 10 but has not widened its peer range.
+peerDependencyRules:
+  allowedVersions:
+    "eslint-plugin-jsx-a11y>eslint": "^10.0.0"
