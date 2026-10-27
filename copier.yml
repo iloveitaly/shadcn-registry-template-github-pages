@@ -1,6 +1,10 @@
 _min_copier_version: 9.19.1
 _answers_file: .copier/.copier-answers.yml
 
+_message_before_copy: |
+  Install mise and uv before continuing. Copier will install the project tools
+  and dependencies, then build the registry and demo automatically.
+
 project_name:
   type: str
   help: Lowercase repository slug
@@ -52,12 +56,20 @@ _exclude:
 _tasks:
   - command: ["{{ _copier_python }}", .copier/bootstrap.py]
     when: "{{ _copier_operation == 'copy' }}"
+  - command: [mise, trust, mise.toml]
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: [mise, install]
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: [mise, exec, --, pnpm, install, --frozen-lockfile]
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: [mise, exec, --, pnpm, build]
+    when: "{{ _copier_operation == 'copy' }}"
 
 _message_after_copy: |
-  Your registry includes four working examples.
+  Your tools and dependencies are installed. The registry and demo are built
+  with four working examples.
 
-  1. Run `mise install`, then `mise exec -- pnpm install --frozen-lockfile`.
-  2. Run `mise exec -- pnpm dev` to preview or `mise exec -- pnpm build` to build.
-  3. Enable GitHub Pages: Settings → Pages → Source → GitHub Actions.
-  4. Push to your default branch to deploy. No Pages personal access token is needed.
-  5. Add your items to registry.json and previews to app/examples/<item-name>.tsx.
+  1. Run `mise exec -- pnpm dev` to start the demo.
+  2. Enable GitHub Pages: Settings → Pages → Source → GitHub Actions.
+  3. Push to your default branch to deploy. No Pages personal access token is needed.
+  4. Add your items to registry.json and previews to app/examples/<item-name>.tsx.

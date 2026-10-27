@@ -11,6 +11,11 @@ from copier import run_copy, run_update
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Copier's tasks inherit this environment, including the active pnpm selected by mise.
+pnpm_executable = os.environ.get("npm_execpath", "")
+if Path(pnpm_executable).is_absolute():
+    os.environ["PATH"] = str(Path(pnpm_executable).parent) + os.pathsep + os.environ["PATH"]
+
 
 def run(*args, cwd):
     env = {**os.environ, "CI": "true"}
@@ -50,9 +55,13 @@ with tempfile.TemporaryDirectory(prefix="registry-template-") as directory:
     assert (project / ".copier/.copier-answers.yml").is_file()
     assert not (project / ".git").exists(), "Copying must not create commits or repositories"
     assert "example-registry" in (project / "README.md").read_text()
-    run("pnpm", "install", "--frozen-lockfile", cwd=project)
+    assert (project / "node_modules/react/package.json").is_file(), "Copier must install dependencies"
+    assert (project / "public/r/registry.json").is_file(), "Copier must build registry assets"
+    build = project / "dist/index.html"
+    assert build.is_file(), "Copier must build the demo"
+    for item in registry["items"]:
+        assert (project / "public/r" / f'{item["name"]}.json').is_file()
     run("pnpm", "check", cwd=project)
-    run("pnpm", "build", cwd=project)
     run("git", "init", "--quiet", cwd=project)
     commit(project, "Generated project")
     example = project / "app/examples/hello-world.tsx"
@@ -80,11 +89,14 @@ with tempfile.TemporaryDirectory(prefix="registry-template-") as directory:
     path.write_text(path.read_text().replace("Shadcn Registry Template", "Upstream title"))
     (source / ".template-update-check").write_text("Template update applied\n")
     commit(source, "Update template")
+    build.write_text(build.read_text() + "\n<!-- Preserve build output during template updates. -->\n")
+    previous_build = build.read_text()
     run_update(project, answers_file=".copier/.copier-answers.yml", defaults=True, unsafe=True, vcs_ref="HEAD", overwrite=True)
+    assert build.read_text() == previous_build, "Template updates must not rerun setup builds"
     for path, content in preserved.items():
         assert path.read_text() == content, f"Copier overwrote project-owned {path.name}"
     assert (project / "README.md").read_text() == "Project-owned documentation\n"
     assert (project / ".template-update-check").is_file()
     assert json.loads((project / "package.json").read_text())["name"] == "example-registry"
     run("pnpm", "build", cwd=project)
-    print("Generated project installs, checks, builds, and updates while preserving customizations.")
+    print("Copier automatically installs and builds; checks and updates preserve project customizations.")

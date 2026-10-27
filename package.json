@@ -24,7 +24,7 @@
     "registry:validate": "shadcn registry validate",
     "test": "playwright test",
     "test:registry": "node scripts/test-registry.mjs",
-    "test:template": "uv run --with copier==9.19.1 scripts/test-template.py",
+    "test:template": "uv tool run --from copier@latest python scripts/test-template.py",
     "upgrade:shadcn": "node scripts/upgrade-shadcn.mjs",
     "upgrade:packages": "pnpm dlx npm-check-updates --interactive --format group"
   },

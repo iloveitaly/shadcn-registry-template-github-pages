@@ -4,7 +4,16 @@ Reusable React components with a static demo at <SITE_URL>.
 
 ## Develop
 
+Copier has installed the tools and dependencies and built the registry and demo. Start the demo:
+
 ```sh
+mise exec -- pnpm dev
+```
+
+For a fresh clone, or to repeat installation:
+
+```sh
+mise trust mise.toml
 mise install
 mise exec -- pnpm install --frozen-lockfile
 mise exec -- pnpm dev

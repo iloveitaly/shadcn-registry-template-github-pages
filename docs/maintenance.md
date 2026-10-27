@@ -24,7 +24,11 @@ from `@/registry/new-york/ui` when adopting the new structure in an existing reg
 The Pokémon example is a portable `pokemon-list.tsx` component; it no longer installs a
 Next-specific `app/pokemon/page.tsx` route.
 
-Copier now copies working examples on initial generation and excludes project-owned registry
+Copier now installs tools and dependencies and builds the site during initial generation. It
+uses `copier@latest` for generation and updates, with a minimum supported version declared in
+`copier.yml`. Setup tasks run only on initial generation.
+
+Copier copies working examples on initial generation and excludes project-owned registry
 sources, previews, gallery, and HTML during updates. The answers file is stored at
 `.copier/.copier-answers.yml`. Existing projects whose answers were written to the old root
 `.copier-answers.yml` should move that file to the nested location before running the helper.

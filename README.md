@@ -11,14 +11,15 @@ Install [mise](https://mise.jdx.dev/) and [uv](https://docs.astral.sh/uv/), then
 ```sh
 mkdir my-registry
 cd my-registry
-uv tool run copier==9.19.1 copy --trust https://github.com/iloveitaly/shadcn-registry-template-github-pages .
-mise install
-mise exec -- pnpm install --frozen-lockfile
+uv tool run copier@latest copy --trust https://github.com/iloveitaly/shadcn-registry-template-github-pages .
 mise exec -- pnpm dev
 ```
 
 Copier asks for the project name, GitHub owner, repository URL, and site URL. These populate
 package metadata, registry metadata, the HTML title, and README. Custom domains are supported.
+Copier then trusts the generated mise config, runs `mise install`, installs dependencies with
+`mise exec -- pnpm install --frozen-lockfile`, and builds the registry and demo. These setup
+tasks run on initial generation; template updates preserve your installed environment and build outputs.
 Copying does not initialize Git or create commits. Initialize and push the repository when ready.
 
 The pinned toolchain is Node 24, pnpm 12, Just, and uv. Run commands through `mise exec --`
